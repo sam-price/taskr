@@ -1,5 +1,9 @@
 class TasksController < ApplicationController
 
+	def index
+		@tasks = Task.all
+	end
+
 	def new
 		@task = Task.new
 	end
@@ -7,6 +11,8 @@ class TasksController < ApplicationController
 	def edit
 		@task = Task.find(params[:id])
 	end
+
+
 
 	# Handles the new form submission
 	def create
