@@ -5,7 +5,9 @@ class TasksController < ApplicationController
 	before_action :set_task, only:[:edit, :update, :show, :destroy]
 
 	def index
-		@tasks = current_user.tasks
+		@to_do = current_user.tasks.where(state: 'to_do')
+		@doing = current_user.tasks.where(state: 'doing')
+		@done = current_user.tasks.where(state: 'done')
 	end
 
 	def new
@@ -65,7 +67,7 @@ class TasksController < ApplicationController
 	# content to be permitted. A blog application would require title/desc etc. to be
 	# required. This is called WHITELISTING.
 	def tasks_params
-		params.require(:task).permit(:content)
+		params.require(:task).permit(:content, :state)
 	end
 
 
