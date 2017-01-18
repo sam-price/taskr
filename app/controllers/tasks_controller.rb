@@ -1,9 +1,11 @@
 class TasksController < ApplicationController
+	# devises own method 
+	before_action :authenticate_user!
 	# Uses set_task bit of code only with certain methods
 	before_action :set_task, only:[:edit, :update, :show, :destroy]
 
 	def index
-		@tasks = Task.all
+		@tasks = current_user.tasks
 	end
 
 	def new
@@ -16,7 +18,7 @@ class TasksController < ApplicationController
 
 	# Handles the new form submission
 	def create
-		@task = Task.new(tasks_params)
+		@task = current_user.tasks.new(tasks_params)
 		if @task.save
 			flash[:notice] = "Task was successfully created."
 			# Tasks path is found in rake routes. @task is added as route needs the specific ID
