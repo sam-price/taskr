@@ -2,7 +2,7 @@ class TasksController < ApplicationController
 	# devises own method 
 	before_action :authenticate_user!
 	# Uses set_task bit of code only with certain methods
-	before_action :set_task, only:[:edit, :update, :show, :destroy]
+	before_action :set_task, only:[:edit, :update, :show, :destroy, :change]
 
 	def index
 		@to_do = current_user.tasks.where(state: 'to_do')
@@ -55,7 +55,11 @@ class TasksController < ApplicationController
 		redirect_to tasks_path
 	end
 
-	
+	def change
+		@task.update_attributes(state: params[:state])
+		flash[:notice] = "Task status was successfully changed."
+		redirect_to tasks_path
+	end
 
 	private
 		
