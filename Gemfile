@@ -69,3 +69,5 @@ gem 'simple_form'
 
 # Devise
 gem 'devise'
+
+ruby "2.4.0"
